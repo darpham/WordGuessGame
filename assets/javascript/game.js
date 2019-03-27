@@ -20,7 +20,7 @@ getNewWord();
 // Variable to keep track of score (how many words guessed)
 var score = 0;
 docScore = document.getElementById("score");
-docScore.textContent = score
+docScore.textContent = "Score: " + score;
 
 // Creates word guess array to verify if the player's guess is correct
 function createWordArray() {
@@ -121,8 +121,9 @@ function checkWinCondition() {
 
 // Function to complete tasks when a player guesses an entire word correctly
 function playerWin() {
+    alert("You guessed " + wordGuessStr + " correctly!");
     score = score + 1;
-    docScore.textContent = score;
+    docScore.textContent = "Score: " + score;
     resetGame();
 };
 
