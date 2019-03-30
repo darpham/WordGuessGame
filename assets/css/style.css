@@ -1,0 +1,10 @@
+body {
+    /* background: url(../images/fruit_ninja_bg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat; */
+    color: black;
+    font-family: 'Germania One', cursive;
+}
+
+#first-jumbo {
+    background-color: transparent !important;

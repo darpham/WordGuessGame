@@ -3,8 +3,8 @@ var wordDictionary = ["apple", "apricot", "avocado", "banana", "berry", "cantalo
 
 // Creating global variables
 var wordGuessStr = "";
-var wordGuessArray = [];
-var problem = [];
+
+var answerObject = {};
 
 // Variable to keep track of used words already
 var usedWords = [];
@@ -26,8 +26,9 @@ docScore.textContent = "Score: " + score;
 function createWordArray() {
     wordGuessArray = [];
     for (var i = 0; i < wordGuessStr.length; i++) {
-        letter = wordGuessStr.charAt(i);
-        wordGuessArray.push(letter);
+        l = wordGuessStr.charAt(i);
+        answerObject[i] = ({letter:l,guessed:false});
+        console.log(answerObject);
     };
 };
 createWordArray();
@@ -77,12 +78,14 @@ function myEventHandler(e) {
 
 // Function to assess player's guess whether it's correct
 function playerGuessCorrect(guess) {
-    if (wordGuessArray.includes(guess)) {
-        console.log("Player guessed a correct word!");
-        guessedAlreadytest(guess);
-    } else {
-        console.error("Player guessed a the word incorrectly");
-    };
+    Object.keys(answerObject).forEach(function(key) {
+        if (answerObject[key] == guess) {
+        console.log("Player guessed a word correctly!");
+        } else {
+            console.error("Player guessed a word incorrectly!")
+        }
+    });
+    
 
 };
 
@@ -94,7 +97,7 @@ function guessedAlreadytest(guess) {
     } else {
         console.log("Player guessed new word correctly");
         playersGuesses.push(guess);
-        console.log(playersGuesses)
+        console.log(playersGuesses);
         guessCorrect(guess);
     };
 };
@@ -140,4 +143,3 @@ function resetGame() {
         console.log("No more words to play")
     };
 };
-
