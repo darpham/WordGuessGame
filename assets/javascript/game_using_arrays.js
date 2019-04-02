@@ -6,7 +6,7 @@ var wordGuessStr = "";
 var wordGuessArray = [];
 var problem = [];
 
-// Variable to keep track of used words already
+// Variable to keep track o`f used words already
 var usedWords = [];
 
 // Picks a random word out of the list and sets as guess string
@@ -21,6 +21,11 @@ getNewWord();
 var score = 0;
 docScore = document.getElementById("score");
 docScore.textContent = "Score: " + score;
+
+// Variable to keep track of guesses left
+var guessesLeft = 15;
+docGuess = document.getElementById("guesses");
+docGuess.textContent = "Guesses left: " + guessesLeft;
 
 // Creates word guess array to verify if the player's guess is correct
 function createWordArray() {
@@ -45,7 +50,7 @@ function createProblemArray() {
 };
 createProblemArray();
 
-// Variable to hold player's guesses
+// Variable to hold letters that the player has guessed
 var playersGuesses = [];
 
 // Get document alert div and update text to notify user
@@ -81,9 +86,25 @@ function playerGuessCorrect(guess) {
         console.log("Player guessed a correct word!");
         guessedAlreadytest(guess);
     } else {
-        console.error("Player guessed a the word incorrectly");
+        console.error("Player guessed a word incorrectly");
+        deductGuess(guess);       
     };
 
+};
+
+// Function to deduct 1 guess if letter has been pressed
+function deductGuess(guess) {
+    docGuess.textContent = "Guesses left: " + guessesLeft;
+    // calls function to reset game if player loses (0 guessesLeft)
+    if (guessesLeft === 0) {
+        playerLose();
+    } else if (playersGuesses.includes(guess)) {
+        console.log("player has " + guessesLeft + " guesses left");
+    } else {
+        playersGuesses.push(guess);
+        guessesLeft -= 1;
+        docGuess.textContent = "Guesses left: " + guessesLeft;
+    }
 };
 
 // Function to determine if word has already been guessed
@@ -95,6 +116,7 @@ function guessedAlreadytest(guess) {
         console.log("Player guessed new word correctly");
         playersGuesses.push(guess);
         console.log(playersGuesses)
+        // Function to 
         guessCorrect(guess);
     };
 };
@@ -113,7 +135,6 @@ function guessCorrect(word) {
 // Function to check if the player has won after a correct guess with change
 function checkWinCondition() {
     if (problem.includes("_")) {
-
     } else {
         playerWin();
     };
@@ -140,3 +161,7 @@ function resetGame() {
         console.log("No more words to play")
     };
 };
+
+function playerLose() {
+    alert("You lose\n" + "Thanks for playing!\n" + "You scored: " + score + " points");
+}
